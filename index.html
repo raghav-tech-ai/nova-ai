@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI Chatbot</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; background: #1a1a2e; display: flex; justify-content: center; align-items: center; height: 100vh; }
+    .container { background: #16213e; width: 420px; border-radius: 16px; padding: 24px; box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+    h2 { color: #e94560; text-align: center; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; }
+    
+    /* Login Styles */
+    #login-box { display: flex; flex-direction: column; gap: 16px; }
+    #login-box input { padding: 12px; border-radius: 10px; border: none; background: #0f3460; color: white; font-size: 16px; outline: none; }
+    #login-box button { padding: 12px; background: #e94560; color: white; border: none; border-radius: 10px; cursor: pointer; font-size: 16px; font-weight: bold; }
+    #login-box button:hover { background: #c73652; }
+
+    /* Chat Styles */
+    #chat-box { display: none; flex-direction: column; }
+    #messages { height: 340px; overflow-y: auto; margin-bottom: 16px; display: flex; flex-direction: column; gap: 10px; padding-right: 5px; }
+    #messages::-webkit-scrollbar { width: 6px; }
+    #messages::-webkit-scrollbar-thumb { background: #0f3460; border-radius: 3px; }
+    
+    .msg { padding: 10px 14px; border-radius: 12px; max-width: 85%; font-size: 14px; line-height: 1.5; white-space: pre-wrap; }
+    .user { background: #e94560; color: white; align-self: flex-end; }
+    .bot { background: #0f3460; color: #eee; align-self: flex-start; }
+    .input-row { display: flex; gap: 8px; }
+    .input-row input { flex: 1; padding: 10px 14px; border-radius: 10px; border: none; background: #0f3460; color: white; font-size: 14px; outline: none; }
+    .input-row button { padding: 10px 18px; background: #e94560; color: white; border: none; border-radius: 10px; cursor: pointer; font-size: 14px; }
+    .input-row button:hover { background: #c73652; }
+    
+    .logout-btn { background: #0f3460; font-size: 12px; padding: 6px 12px; border-radius: 8px; margin-left: auto; }
+    .logout-btn:hover { background: #1a4a8a; }
+  </style>
+</head>
+<body>
+  <div class="container" id="login-box">
+    <h2 style="justify-content: center;">🤖 AI Chat Login</h2>
+    <input id="username-input" type="text" placeholder="Enter your username..." onkeydown="if(event.key==='Enter') login()" />
+    <button onclick="login()">Start Chatting</button>
+  </div>
+
+  <div class="container" id="chat-box">
+    <h2>
+      🤖 AI Chatbot
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    </h2>
+    <div id="messages"></div>
+    <div class="input-row">
+      <input id="input" type="text" placeholder="Type a message..." onkeydown="if(event.key==='Enter') sendMessage()" />
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    let currentUser = null;
+
+    window.onload = () => {
+      const savedUser = localStorage.getItem('chatbot_username');
+      if (savedUser) {
+        currentUser = savedUser;
+        showChat();
+      }
+    };
+
+    function login() {
+      const username = document.getElementById('username-input').value.trim();
+      if (!username) return;
+      
+      currentUser = username;
+      localStorage.setItem('chatbot_username', currentUser);
+      showChat();
+    }
+
+    function logout() {
+      currentUser = null;
+      localStorage.removeItem('chatbot_username');
+      document.getElementById('messages').innerHTML = '';
+      document.getElementById('chat-box').style.display = 'none';
+      document.getElementById('login-box').style.display = 'flex';
+      document.getElementById('username-input').value = '';
+    }
+
+    async function showChat() {
+      document.getElementById('login-box').style.display = 'none';
+      document.getElementById('chat-box').style.display = 'flex';
+      await loadHistory();
+    }
+
+    function escapeHTML(str) {
+      return str.replace(/[&<>'"]/g, 
+        tag => ({
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          "'": '&#39;',
+          '"': '&quot;'
+        }[tag])
+      );
+    }
+
+    async function loadHistory() {
+      if (!currentUser) return;
+      const messagesDiv = document.getElementById('messages');
+      messagesDiv.innerHTML = '<div style="text-align: center; color: #aaa; font-size: 12px;">Loading history...</div>';
+      
+      try {
+        const res = await fetch(`/history?username=${encodeURIComponent(currentUser)}`);
+        const history = await res.json();
+        
+        messagesDiv.innerHTML = '';
+        if (history.length === 0) {
+          messagesDiv.innerHTML = '<div style="text-align: center; color: #aaa; font-size: 12px; margin-top: 10px;">No previous messages. Start chatting!</div>';
+        } else {
+          history.forEach(msg => {
+            const isUser = msg.role === 'user';
+            const className = isUser ? 'user' : 'bot';
+            const content = escapeHTML(msg.content);
+            messagesDiv.innerHTML += `<div class="msg ${className}">${content}</div>`;
+          });
+          messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+      } catch (e) {
+        messagesDiv.innerHTML = '<div style="text-align: center; color: #e94560; font-size: 12px;">Failed to load history</div>';
+      }
+    }
+
+    async function sendMessage() {
+      if (!currentUser) return;
+      const input = document.getElementById('input');
+      const messagesDiv = document.getElementById('messages');
+      const text = input.value.trim();
+      if (!text) return;
+
+      if (messagesDiv.innerHTML.includes('No previous messages')) {
+        messagesDiv.innerHTML = '';
+      }
+
+      const escapedText = escapeHTML(text);
+      messagesDiv.innerHTML += `<div class="msg user">${escapedText}</div>`;
+      input.value = '';
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+      const loadingId = 'loading-' + Date.now();
+      messagesDiv.innerHTML += `<div id="${loadingId}" class="msg bot" style="opacity: 0.7;">Thinking...</div>`;
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+      try {
+        const res = await fetch('/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: currentUser, message: text })
+        });
+        const data = await res.json();
+        
+        document.getElementById(loadingId).remove();
+        
+        if (data.error) {
+          messagesDiv.innerHTML += `<div class="msg bot" style="color: #e94560;">Error: ${data.error}</div>`;
+        } else {
+          const escapedReply = escapeHTML(data.reply);
+          messagesDiv.innerHTML += `<div class="msg bot">${escapedReply}</div>`;
+        }
+      } catch (e) {
+        const loadingEl = document.getElementById(loadingId);
+        if(loadingEl) loadingEl.remove();
+        messagesDiv.innerHTML += `<div class="msg bot" style="color: #e94560;">Error sending message.</div>`;
+      }
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
+  </script>
+</body>
+</html>

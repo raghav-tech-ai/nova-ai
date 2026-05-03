@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.90.0",
+    "@google/genai": "^1.50.1",
+    "@ibm-cloud/cloudant": "^0.12.19",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "groq-sdk": "^1.1.2",
+    "ibm-cloud-sdk-core": "^5.4.12",
+    "ibm-watson": "^12.2.0"
+  }
+}
