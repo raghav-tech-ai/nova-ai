@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <title>NOVA AI</title>
@@ -8,978 +7,143 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: #212121;
-      color: #ececec;
-      height: 100vh;
-      overflow: hidden;
-    }
-
-    /* ───── LOGIN PAGE ───── */
-    #loginPage {
-      display: flex;
-      height: 100vh;
-      align-items: center;
-      justify-content: center;
-      background: #212121;
-    }
-
-    .login-container {
-      display: flex;
-      width: 900px;
-      height: 560px;
-      border-radius: 16px;
-      overflow: hidden;
-      border: 1px solid #333;
-    }
-
-    .login-left {
-      flex: 1;
-      background: #171717;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 40px;
-      gap: 16px;
-    }
-
-    .logo-box {
-      width: 64px;
-      height: 64px;
-      background: #ffffff;
-      border-radius: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 28px;
-      font-weight: 700;
-      color: #000;
-    }
-
-    .login-left h1 {
-      font-size: 30px;
-      font-weight: 700;
-    }
-
-    .login-left p {
-      font-size: 14px;
-      color: #888;
-      text-align: center;
-      line-height: 1.6;
-    }
-
-    .features {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      width: 100%;
-      margin-top: 10px;
-    }
-
-    .feature {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      background: #2f2f2f;
-      padding: 12px 16px;
-      border-radius: 10px;
-    }
-
-    .feature-icon {
-      width: 32px;
-      height: 32px;
-      background: #000;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 15px;
-      flex-shrink: 0;
-    }
-
-    .feature-title {
-      font-size: 13px;
-      font-weight: 500;
-    }
-
-    .feature-text {
-      font-size: 12px;
-      color: #888;
-    }
-
-    .login-right {
-      flex: 1;
-      background: #212121;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 48px;
-    }
-
-    .login-right h2 {
-      font-size: 22px;
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-
-    .login-right>p {
-      font-size: 13px;
-      color: #888;
-      margin-bottom: 28px;
-    }
-
-    .form {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .input-group {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    label {
-      font-size: 12px;
-      color: #aaa;
-    }
-
-    .form input {
-      padding: 12px 16px;
-      background: #2f2f2f;
-      border: 1px solid #444;
-      border-radius: 10px;
-      color: #ececec;
-      font-size: 14px;
-      outline: none;
-      width: 100%;
-    }
-
-    .form input:focus {
-      border-color: #fff;
-    }
-
-    .form input::placeholder {
-      color: #666;
-    }
-
-    .forgot {
-      font-size: 12px;
-      color: #888;
-      text-align: right;
-      cursor: pointer;
-    }
-
-    .forgot:hover {
-      color: #ececec;
-    }
-
-    .login-btn {
-      padding: 12px;
-      background: #fff;
-      color: #000;
-      border: none;
-      border-radius: 10px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      width: 100%;
-    }
-
-    .login-btn:hover {
-      background: #e0e0e0;
-    }
-
-    .divider {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      color: #555;
-      font-size: 12px;
-    }
-
-    .divider::before,
-    .divider::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: #333;
-    }
-
-    .google-btn {
-      padding: 11px;
-      background: transparent;
-      color: #ececec;
-      border: 1px solid #444;
-      border-radius: 10px;
-      font-size: 13px;
-      cursor: pointer;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    .google-btn:hover {
-      background: #2f2f2f;
-    }
-
-    .bottom-text {
-      font-size: 12px;
-      color: #666;
-      text-align: center;
-    }
-
-    .bottom-text span {
-      color: #ececec;
-      cursor: pointer;
-      text-decoration: underline;
-    }
-
-    .error-msg {
-      color: #ff6b6b;
-      font-size: 12px;
-      text-align: center;
-      display: none;
-    }
-
-    /* ───── CHAT PAGE ───── */
-    #chatPage {
-      display: none;
-      height: 100vh;
-    }
-
-    .app {
-      display: flex;
-      height: 100vh;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #212121; color: #ececec; height: 100vh; overflow: hidden; }
+    .app { display: flex; height: 100vh; }
 
     /* SIDEBAR */
-    .sidebar {
-      width: 260px;
-      background: #171717;
-      display: flex;
-      flex-direction: column;
-      padding: 12px;
-      gap: 4px;
-      flex-shrink: 0;
-    }
-
-    .sidebar-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 8px 4px 12px;
-      border-bottom: 1px solid #2f2f2f;
-      margin-bottom: 4px;
-    }
-
-    .sidebar-logo {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .sidebar-logo-box {
-      width: 28px;
-      height: 28px;
-      background: #fff;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 13px;
-      font-weight: 700;
-      color: #000;
-    }
-
-    .sidebar-logo span {
-      font-size: 15px;
-      font-weight: 600;
-    }
-
-    .new-chat-btn {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 12px;
-      background: #2f2f2f;
-      border: none;
-      color: #ececec;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 13px;
-      width: 100%;
-      margin-bottom: 8px;
-    }
-
-    .new-chat-btn:hover {
-      background: #3f3f3f;
-    }
-
-    .new-chat-btn .icon {
-      font-size: 16px;
-    }
-
-    .section-title {
-      font-size: 11px;
-      color: #666;
-      padding: 8px 12px 4px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .chat-history {
-      flex: 1;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .chat-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 8px 12px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 13px;
-      color: #aaa;
-      gap: 8px;
-    }
-
-    .chat-item:hover {
-      background: #2f2f2f;
-      color: #ececec;
-    }
-
-    .chat-item.active {
-      background: #2f2f2f;
-      color: #ececec;
-    }
-
-    .chat-item-text {
-      flex: 1;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .chat-item-del {
-      opacity: 0;
-      font-size: 14px;
-      color: #666;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 2px 4px;
-      border-radius: 4px;
-    }
-
-    .chat-item:hover .chat-item-del {
-      opacity: 1;
-    }
-
-    .chat-item-del:hover {
-      color: #ff6b6b;
-      background: #3f3f3f;
-    }
-
-    .sidebar-nav {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      border-top: 1px solid #2f2f2f;
-      padding-top: 8px;
-      margin-top: 4px;
-    }
-
-    .nav-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 9px 12px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 13px;
-      color: #aaa;
-      border: none;
-      background: none;
-      width: 100%;
-      text-align: left;
-    }
-
-    .nav-item:hover {
-      background: #2f2f2f;
-      color: #ececec;
-    }
-
-    .nav-item.danger:hover {
-      background: #3f1f1f;
-      color: #ff6b6b;
-    }
-
-    .user-info {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 12px;
-      border-top: 1px solid #2f2f2f;
-      margin-top: 4px;
-    }
-
-    .user-avatar {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      background: #4f46e5;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      font-weight: 600;
-      flex-shrink: 0;
-    }
-
-    .user-name {
-      font-size: 13px;
-      color: #ececec;
-      flex: 1;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
+    .sidebar { width: 260px; background: #171717; display: flex; flex-direction: column; padding: 12px; gap: 4px; flex-shrink: 0; }
+    .sidebar-header { display: flex; align-items: center; justify-content: space-between; padding: 8px 4px 12px; border-bottom: 1px solid #2f2f2f; margin-bottom: 4px; }
+    .sidebar-logo { display: flex; align-items: center; gap: 8px; }
+    .sidebar-logo-box { width: 28px; height: 28px; background: #fff; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #000; }
+    .sidebar-logo span { font-size: 15px; font-weight: 600; }
+    .new-chat-btn { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: #2f2f2f; border: none; color: #ececec; border-radius: 8px; cursor: pointer; font-size: 13px; width: 100%; margin-bottom: 8px; }
+    .new-chat-btn:hover { background: #3f3f3f; }
+    .section-title { font-size: 11px; color: #666; padding: 8px 12px 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .chat-history { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 2px; }
+    .chat-item { display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 13px; color: #aaa; gap: 8px; }
+    .chat-item:hover { background: #2f2f2f; color: #ececec; }
+    .chat-item.active { background: #2f2f2f; color: #ececec; }
+    .chat-item-text { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .chat-item-del { opacity: 0; font-size: 14px; color: #666; background: none; border: none; cursor: pointer; padding: 2px 4px; border-radius: 4px; }
+    .chat-item:hover .chat-item-del { opacity: 1; }
+    .chat-item-del:hover { color: #ff6b6b; }
+    .sidebar-nav { display: flex; flex-direction: column; gap: 2px; border-top: 1px solid #2f2f2f; padding-top: 8px; margin-top: 4px; }
+    .nav-item { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; cursor: pointer; font-size: 13px; color: #aaa; border: none; background: none; width: 100%; text-align: left; }
+    .nav-item:hover { background: #2f2f2f; color: #ececec; }
+    .nav-item.danger:hover { background: #3f1f1f; color: #ff6b6b; }
+    .user-info { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-top: 1px solid #2f2f2f; margin-top: 4px; }
+    .user-avatar { width: 30px; height: 30px; border-radius: 50%; background: #4f46e5; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; flex-shrink: 0; }
+    .user-name { font-size: 13px; color: #ececec; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
     /* MAIN CHAT */
-    .main {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
+    .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+    .top-bar { padding: 14px 24px; border-bottom: 1px solid #2f2f2f; font-size: 14px; font-weight: 500; color: #ececec; display: flex; align-items: center; justify-content: space-between; }
+    #messages { flex: 1; overflow-y: auto; padding: 24px; display: flex; flex-direction: column; gap: 24px; }
+    .msg-row { display: flex; gap: 12px; max-width: 800px; width: 100%; margin: 0 auto; }
+    .msg-row.user { justify-content: flex-end; }
+    .avatar { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; flex-shrink: 0; }
+    .avatar.bot { background: #fff; color: #000; }
+    .avatar.user { background: #4f46e5; color: #fff; }
+    .bubble { padding: 12px 16px; border-radius: 12px; font-size: 14px; line-height: 1.7; max-width: 680px; }
+    .bubble.bot { background: #2f2f2f; color: #ececec; border-radius: 0 12px 12px 12px; }
+    .bubble.user { background: #4f46e5; color: #fff; border-radius: 12px 0 12px 12px; }
+    .bubble pre { background: #1a1a1a; border-radius: 8px; padding: 14px; margin: 10px 0; overflow-x: auto; border: 1px solid #444; }
+    .bubble code { font-family: 'Courier New', monospace; font-size: 13px; }
+    .bubble p { margin-bottom: 8px; }
+    .bubble ul, .bubble ol { padding-left: 20px; margin: 8px 0; }
+    .bubble strong { color: #ffffff; }
+    .typing-indicator { display: flex; gap: 4px; align-items: center; padding: 4px 0; }
+    .typing-indicator span { width: 7px; height: 7px; border-radius: 50%; background: #888; animation: bounce 1.2s infinite; }
+    .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+    .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes bounce { 0%,80%,100%{transform:scale(0.8);opacity:0.5}40%{transform:scale(1.2);opacity:1} }
+    .input-area { padding: 16px 24px 20px; }
+    .input-box { display: flex; gap: 8px; background: #2f2f2f; border-radius: 12px; padding: 8px 12px; align-items: flex-end; max-width: 800px; margin: 0 auto; border: 1px solid #444; }
+    textarea { flex: 1; background: transparent; border: none; color: #ececec; font-size: 14px; resize: none; outline: none; max-height: 120px; font-family: inherit; padding: 6px 0; line-height: 1.5; }
+    textarea::placeholder { color: #666; }
+    .send-btn { background: #fff; border: none; color: #000; width: 34px; height: 34px; border-radius: 8px; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .send-btn:hover { background: #e0e0e0; }
+    .send-btn:disabled { background: #444; color: #888; cursor: not-allowed; }
+    .welcome { text-align: center; margin: auto; }
+    .welcome h2 { font-size: 26px; font-weight: 600; margin-bottom: 8px; }
+    .welcome p { color: #888; font-size: 14px; }
+    .suggestions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 20px; }
+    .suggestion { background: #2f2f2f; border: 1px solid #444; color: #ececec; padding: 9px 16px; border-radius: 20px; cursor: pointer; font-size: 13px; }
+    .suggestion:hover { background: #3f3f3f; }
 
-    .top-bar {
-      padding: 14px 24px;
-      border-bottom: 1px solid #2f2f2f;
-      font-size: 14px;
-      font-weight: 500;
-      color: #ececec;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
+    /* PANELS */
+    .projects-panel, .settings-panel { display: none; position: fixed; top: 0; right: 0; width: 320px; height: 100vh; background: #171717; border-left: 1px solid #333; padding: 20px; z-index: 100; flex-direction: column; gap: 16px; overflow-y: auto; }
+    .projects-panel.open, .settings-panel.open { display: flex; }
+    .panel-header { display: flex; align-items: center; justify-content: space-between; }
+    .panel-header h3 { font-size: 16px; font-weight: 600; }
+    .close-panel { background: none; border: none; color: #888; cursor: pointer; font-size: 20px; }
+    .close-panel:hover { color: #ececec; }
+    .project-item { background: #2f2f2f; border-radius: 10px; padding: 14px; cursor: pointer; border: 1px solid #444; }
+    .project-item:hover { border-color: #666; }
+    .project-name { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+    .project-desc { font-size: 12px; color: #888; }
+    .add-project { padding: 10px; background: transparent; border: 1px dashed #444; color: #888; border-radius: 10px; cursor: pointer; font-size: 13px; width: 100%; }
+    .add-project:hover { border-color: #888; color: #ececec; }
+    .setting-item { display: flex; align-items: center; justify-content: space-between; padding: 14px; background: #2f2f2f; border-radius: 10px; }
+    .setting-label { font-size: 14px; }
+    .setting-desc { font-size: 12px; color: #888; margin-top: 2px; }
+    .toggle { width: 40px; height: 22px; background: #444; border-radius: 11px; cursor: pointer; position: relative; flex-shrink: 0; }
+    .toggle.on { background: #4f46e5; }
+    .toggle::after { content: ''; position: absolute; width: 16px; height: 16px; background: #fff; border-radius: 50%; top: 3px; left: 3px; transition: 0.2s; }
+    .toggle.on::after { left: 21px; }
 
-    #messages {
-      flex: 1;
-      overflow-y: auto;
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
-
-    .msg-row {
-      display: flex;
-      gap: 12px;
-      max-width: 800px;
-      width: 100%;
-      margin: 0 auto;
-    }
-
-    .msg-row.user {
-      justify-content: flex-end;
-    }
-
-    .avatar {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      font-weight: 600;
-      flex-shrink: 0;
-    }
-
-    .avatar.bot {
-      background: #fff;
-      color: #000;
-    }
-
-    .avatar.user {
-      background: #4f46e5;
-      color: #fff;
-    }
-
-    .bubble {
-      padding: 12px 16px;
-      border-radius: 12px;
-      font-size: 14px;
-      line-height: 1.7;
-      max-width: 680px;
-    }
-
-    .bubble.bot {
-      background: #2f2f2f;
-      color: #ececec;
-      border-radius: 0 12px 12px 12px;
-    }
-
-    .bubble.user {
-      background: #4f46e5;
-      color: #fff;
-      border-radius: 12px 0 12px 12px;
-    }
-
-    .bubble pre {
-      background: #1a1a1a;
-      border-radius: 8px;
-      padding: 14px;
-      margin: 10px 0;
-      overflow-x: auto;
-      border: 1px solid #444;
-    }
-
-    .bubble code {
-      font-family: 'Courier New', monospace;
-      font-size: 13px;
-    }
-
-    .bubble p {
-      margin-bottom: 8px;
-    }
-
-    .bubble ul,
-    .bubble ol {
-      padding-left: 20px;
-      margin: 8px 0;
-    }
-
-    .typing-indicator {
-      display: flex;
-      gap: 4px;
-      align-items: center;
-      padding: 4px 0;
-    }
-
-    .typing-indicator span {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #888;
-      animation: bounce 1.2s infinite;
-    }
-
-    .typing-indicator span:nth-child(2) {
-      animation-delay: 0.2s;
-    }
-
-    .typing-indicator span:nth-child(3) {
-      animation-delay: 0.4s;
-    }
-
-    @keyframes bounce {
-
-      0%,
-      80%,
-      100% {
-        transform: scale(0.8);
-        opacity: 0.5
-      }
-
-      40% {
-        transform: scale(1.2);
-        opacity: 1
-      }
-    }
-
-    .input-area {
-      padding: 16px 24px 20px;
-    }
-
-    .input-box {
-      display: flex;
-      gap: 8px;
-      background: #2f2f2f;
-      border-radius: 12px;
-      padding: 8px 12px;
-      align-items: flex-end;
-      max-width: 800px;
-      margin: 0 auto;
-      border: 1px solid #444;
-    }
-
-    textarea {
-      flex: 1;
-      background: transparent;
-      border: none;
-      color: #ececec;
-      font-size: 14px;
-      resize: none;
-      outline: none;
-      max-height: 120px;
-      font-family: inherit;
-      padding: 6px 0;
-      line-height: 1.5;
-    }
-
-    textarea::placeholder {
-      color: #666;
-    }
-
-    .send-btn {
-      background: #fff;
-      border: none;
-      color: #000;
-      width: 34px;
-      height: 34px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .send-btn:hover {
-      background: #e0e0e0;
-    }
-
-    .send-btn:disabled {
-      background: #444;
-      color: #888;
-      cursor: not-allowed;
-    }
-
-    .welcome {
-      text-align: center;
-      margin: auto;
-    }
-
-    .welcome h2 {
-      font-size: 26px;
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-
-    .welcome p {
-      color: #888;
-      font-size: 14px;
-    }
-
-    .suggestions {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 20px;
-    }
-
-    .suggestion {
-      background: #2f2f2f;
-      border: 1px solid #444;
-      color: #ececec;
-      padding: 9px 16px;
-      border-radius: 20px;
-      cursor: pointer;
-      font-size: 13px;
-    }
-
-    .suggestion:hover {
-      background: #3f3f3f;
-    }
-
-    /* PROJECTS PANEL */
-    .projects-panel {
-      display: none;
-      position: fixed;
-      top: 0;
-      right: 0;
-      width: 320px;
-      height: 100vh;
-      background: #171717;
-      border-left: 1px solid #333;
-      padding: 20px;
-      z-index: 100;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .projects-panel.open {
-      display: flex;
-    }
-
-    .panel-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .panel-header h3 {
-      font-size: 16px;
-      font-weight: 600;
-    }
-
-    .close-panel {
-      background: none;
-      border: none;
-      color: #888;
-      cursor: pointer;
-      font-size: 20px;
-    }
-
-    .close-panel:hover {
-      color: #ececec;
-    }
-
-    .project-item {
-      background: #2f2f2f;
-      border-radius: 10px;
-      padding: 14px;
-      cursor: pointer;
-      border: 1px solid #444;
-    }
-
-    .project-item:hover {
-      border-color: #666;
-    }
-
-    .project-name {
-      font-size: 14px;
-      font-weight: 500;
-      margin-bottom: 4px;
-    }
-
-    .project-desc {
-      font-size: 12px;
-      color: #888;
-    }
-
-    .add-project {
-      padding: 10px;
-      background: transparent;
-      border: 1px dashed #444;
-      color: #888;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 13px;
-      width: 100%;
-    }
-
-    .add-project:hover {
-      border-color: #888;
-      color: #ececec;
-    }
-
-    /* SETTINGS PANEL */
-    .settings-panel {
-      display: none;
-      position: fixed;
-      top: 0;
-      right: 0;
-      width: 320px;
-      height: 100vh;
-      background: #171717;
-      border-left: 1px solid #333;
-      padding: 20px;
-      z-index: 100;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .settings-panel.open {
-      display: flex;
-    }
-
-    .setting-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px;
-      background: #2f2f2f;
-      border-radius: 10px;
-    }
-
-    .setting-label {
-      font-size: 14px;
-    }
-
-    .setting-desc {
-      font-size: 12px;
-      color: #888;
-      margin-top: 2px;
-    }
-
-    .toggle {
-      width: 40px;
-      height: 22px;
-      background: #444;
-      border-radius: 11px;
-      cursor: pointer;
-      position: relative;
-      flex-shrink: 0;
-    }
-
-    .toggle.on {
-      background: #4f46e5;
-    }
-
-    .toggle::after {
-      content: '';
-      position: absolute;
-      width: 16px;
-      height: 16px;
-      background: #fff;
-      border-radius: 50%;
-      top: 3px;
-      left: 3px;
-      transition: 0.2s;
-    }
-
-    .toggle.on::after {
-      left: 21px;
-    }
+    /* IBM Badge */
+    .ibm-badge { font-size: 10px; color: #0062FF; background: #001d6c22; border: 1px solid #0062FF44; padding: 2px 8px; border-radius: 20px; }
   </style>
 </head>
-
 <body>
-
-  <!-- LOGIN PAGE -->
-  <div id="loginPage">
-    <div class="login-container">
-      <div class="login-left">
-        <div class="logo-box">N</div>
-        <h1>NOVA AI</h1>
-        <p>Your personal AI assistant powered by Llama 3.3</p>
-        <div class="features">
-          <div class="feature">
-            <div class="feature-icon">⚡</div>
-            <div>
-              <div class="feature-title">Lightning Fast</div>
-              <div class="feature-text">Instant AI responses</div>
-            </div>
-          </div>
-          <div class="feature">
-            <div class="feature-icon">💻</div>
-            <div>
-              <div class="feature-title">Code Generation</div>
-              <div class="feature-text">Write code in any language</div>
-            </div>
-          </div>
-          <div class="feature">
-            <div class="feature-icon">🔒</div>
-            <div>
-              <div class="feature-title">Secure & Private</div>
-              <div class="feature-text">Your data stays private</div>
-            </div>
-          </div>
+  <div class="app">
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <div class="sidebar-logo-box">N</div>
+          <span>NOVA AI</span>
         </div>
+        <span class="ibm-badge">IBM</span>
       </div>
-      <div class="login-right">
-        <h2>Welcome back</h2>
-        <p>Login to continue to NOVA AI</p>
-        <div class="form">
-          <div class="input-group">
-            <label>Email address</label>
-            <input type="email" id="loginEmail" placeholder="you@example.com" />
-          </div>
-          <div class="input-group">
-            <label>Password</label>
-            <input type="password" id="loginPassword" placeholder="Enter your password"
-              onkeydown="if(event.key==='Enter') doLogin()" />
-            <span class="forgot">Forgot password?</span>
-          </div>
-          <div class="error-msg" id="loginError">Invalid email or password!</div>
-          <button class="login-btn" onclick="doLogin()">Login</button>
-          <div class="divider">or</div>
-
-          <button class="google-btn" onclick="doLogin(true)">
-            <svg width="18" height="18" viewBox="0 0 24 24">
-              <path fill="#4285F4"
-                d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
-              <path fill="#34A853"
-                d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
-              <path fill="#FBBC05"
-                d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
-              <path fill="#EA4335"
-                d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
-            </svg>
-            Continue with Google
-          </button>
-          <div class="bottom-text">Don't have an account? <span onclick="alert('Sign up coming soon!')">Sign up</span>
-          </div>
-        </div>
+      <button class="new-chat-btn" onclick="newChat()">✏️ &nbsp; New Chat</button>
+      <div class="section-title">Recent Chats</div>
+      <div class="chat-history" id="chatHistory"></div>
+      <div class="sidebar-nav">
+        <button class="nav-item" onclick="toggleProjects()">📁 &nbsp; Projects</button>
+        <button class="nav-item" onclick="toggleSettings()">⚙️ &nbsp; Settings</button>
+        <button class="nav-item danger" onclick="doLogout()">🚪 &nbsp; Logout</button>
+      </div>
+      <div class="user-info">
+        <div class="user-avatar" id="userAvatar">U</div>
+        <div class="user-name" id="userName">User</div>
       </div>
     </div>
-  </div>
 
-  <!-- CHAT PAGE -->
-  <div id="chatPage">
-    <div class="app">
-
-      <!-- SIDEBAR -->
-      <div class="sidebar">
-        <div class="sidebar-header">
-          <div class="sidebar-logo">
-            <div class="sidebar-logo-box">N</div>
-            <span>NOVA AI</span>
+    <!-- MAIN -->
+    <div class="main">
+      <div class="top-bar">
+        <span id="chatTitle">New Chat</span>
+        <span style="font-size:12px;color:#666;">Powered by Llama 3.3</span>
+      </div>
+      <div id="messages">
+        <div class="welcome" id="welcome">
+          <h2>Hi, I'm NOVA 👋</h2>
+          <p>Your personal AI Assistant — ask me anything!</p>
+          <div class="suggestions">
+            <div class="suggestion" onclick="suggest(this)">Write a Python function</div>
+            <div class="suggestion" onclick="suggest(this)">Explain machine learning</div>
+            <div class="suggestion" onclick="suggest(this)">Help me with my resume</div>
+            <div class="suggestion" onclick="suggest(this)">What is Docker?</div>
           </div>
-        </div>
-        <button class="new-chat-btn" onclick="newChat()">
-          <span class="icon">✏️</span> New Chat
-        </button>
-        <div class="section-title">Recent Chats</div>
-        <div class="chat-history" id="chatHistory"></div>
-        <div class="sidebar-nav">
-          <button class="nav-item" onclick="toggleProjects()">📁 &nbsp; Projects</button>
-          <button class="nav-item" onclick="toggleSettings()">⚙️ &nbsp; Settings</button>
-          <button class="nav-item danger" onclick="doLogout()">🚪 &nbsp; Logout</button>
-        </div>
-        <div class="user-info">
-          <div class="user-avatar" id="userAvatar">U</div>
-          <div class="user-name" id="userName">User</div>
         </div>
       </div>
-
-      <!-- MAIN -->
-      <div class="main">
-        <div class="top-bar">
-          <span id="chatTitle">New Chat</span>
-          <span style="font-size:12px; color:#666;">Powered by Llama 3.3</span>
-        </div>
-        <div id="messages">
-          <div class="welcome" id="welcome">
-            <h2>Hi, I'm NOVA 👋</h2>
-            <p>Your personal AI Assistant — ask me anything!</p>
-            <div class="suggestions">
-              <div class="suggestion" onclick="suggest(this)">Write a Python function</div>
-              <div class="suggestion" onclick="suggest(this)">Explain machine learning</div>
-              <div class="suggestion" onclick="suggest(this)">Help me with my resume</div>
-              <div class="suggestion" onclick="suggest(this)">What is Docker?</div>
-            </div>
-          </div>
-        </div>
-        <div class="input-area">
-          <div class="input-box">
-            <textarea id="input" rows="1" placeholder="Message NOVA..." onkeydown="handleKey(event)"
-              oninput="autoResize(this)"></textarea>
-            <button class="send-btn" id="sendBtn" onclick="sendMessage()">&#9650;</button>
-          </div>
+      <div class="input-area">
+        <div class="input-box">
+          <textarea id="input" rows="1" placeholder="Message NOVA..." onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
+          <button class="send-btn" id="sendBtn" onclick="sendMessage()">&#9650;</button>
         </div>
       </div>
     </div>
@@ -1009,373 +173,212 @@
       <button class="close-panel" onclick="toggleSettings()">✕</button>
     </div>
     <div class="setting-item">
-      <div>
-        <div class="setting-label">Dark Mode</div>
-        <div class="setting-desc">Toggle dark/light theme</div>
-      </div>
+      <div><div class="setting-label">Dark Mode</div><div class="setting-desc">Toggle dark/light theme</div></div>
       <div class="toggle on" onclick="this.classList.toggle('on')"></div>
     </div>
     <div class="setting-item">
-      <div>
-        <div class="setting-label">Save Chat History</div>
-        <div class="setting-desc">Remember your conversations</div>
-      </div>
+      <div><div class="setting-label">Save Chat History</div><div class="setting-desc">Remember your conversations</div></div>
       <div class="toggle on" onclick="this.classList.toggle('on')"></div>
     </div>
     <div class="setting-item">
-      <div>
-        <div class="setting-label">Sound Effects</div>
-        <div class="setting-desc">Play sounds on message</div>
-      </div>
+      <div><div class="setting-label">Sound Effects</div><div class="setting-desc">Play sounds on message</div></div>
       <div class="toggle" onclick="this.classList.toggle('on')"></div>
     </div>
   </div>
+
   <script>
     marked.setOptions({ breaks: true });
-    /* ---------- STATE ---------- */
-    let chats = JSON.parse(localStorage.getItem("nova_chats") || "[]");
+
+    let chats = JSON.parse(localStorage.getItem('nova_chats') || '[]');
     let currentChatId = null;
-    let isLoggedIn = sessionStorage.getItem("nova_loggedIn") === "true";
-    /* ---------- INIT ---------- */
-    window.onload = function () {
-      if (isLoggedIn) {
-        showChat();
-      } else {
-        showLogin();
+
+    function getEmail() { return sessionStorage.getItem('nova_email') || 'user@nova.ai'; }
+    function getName() { return sessionStorage.getItem('nova_name') || 'User'; }
+    function getInitial() { return getEmail()[0].toUpperCase(); }
+
+    // Load user from server (IBM App ID)
+    window.onload = async () => {
+      try {
+        const res = await fetch('/auth/user');
+        const user = await res.json();
+        if (user.loggedIn) {
+          sessionStorage.setItem('nova_email', user.email);
+          sessionStorage.setItem('nova_name', user.name);
+          document.getElementById('userName').textContent = user.name || user.email.split('@')[0];
+          document.getElementById('userAvatar').textContent = (user.name || user.email)[0].toUpperCase();
+        } else {
+          window.location.href = '/login';
+        }
+      } catch(e) {
+        // Fallback if auth not set up yet
+        const email = sessionStorage.getItem('nova_email') || 'user@nova.ai';
+        document.getElementById('userName').textContent = email.split('@')[0];
+        document.getElementById('userAvatar').textContent = email[0].toUpperCase();
       }
-    };
-    /* ---------- PAGE CONTROL ---------- */
-    function showLogin() {
-      document.getElementById("loginPage").style.display = "flex";
-      document.getElementById("chatPage").style.display = "none";
-    }
-    function showChat() {
-      document.getElementById("loginPage").style.display = "none";
-      document.getElementById("chatPage").style.display = "block";
-
-      let email = sessionStorage.getItem("nova_email") || "GuestUser";
-
-      document.getElementById("userName").textContent = email.split("@")[0];
-      document.getElementById("userAvatar").textContent =
-        email.charAt(0).toUpperCase();
-
       renderHistory();
-    }
+    };
 
-    /* ---------- LOGIN ---------- */
-    function doLogin(isGoogle = false) {
-      const err = document.getElementById("loginError");
+    function doLogout() { window.location.href = '/auth/logout'; }
 
-      if (isGoogle) {
-        sessionStorage.setItem("nova_loggedIn", "true");
-        sessionStorage.setItem("nova_email", "googleuser@gmail.com");
-
-        isLoggedIn = true;
-        err.style.display = "none";
-        showChat();
-        return;
-      }
-
-      const email = document.getElementById("loginEmail").value.trim();
-      const pass = document.getElementById("loginPassword").value.trim();
-
-      if (!email || !pass) {
-        err.style.display = "block";
-        err.textContent = "Please enter email and password!";
-        return;
-      }
-
-      sessionStorage.setItem("nova_loggedIn", "true");
-      sessionStorage.setItem("nova_email", email);
-
-      isLoggedIn = true;
-      err.style.display = "none";
-
-      showChat();
-    }
-
-    /* ---------- LOGOUT ---------- */
-    function doLogout() {
-      sessionStorage.clear();
-      isLoggedIn = false;
-      currentChatId = null;
-      showLogin();
-    }
-
-    /* ---------- CHAT HISTORY ---------- */
-    function saveChats() {
-      localStorage.setItem("nova_chats", JSON.stringify(chats));
-    }
+    function saveChats() { localStorage.setItem('nova_chats', JSON.stringify(chats)); }
 
     function renderHistory() {
-      const history = document.getElementById("chatHistory");
-      history.innerHTML = "";
-
-      chats
-        .slice()
-        .reverse()
-        .forEach((chat) => {
-          const div = document.createElement("div");
-          div.className =
-            "chat-item" + (chat.id === currentChatId ? " active" : "");
-
-          div.innerHTML = `
-  <span class="chat-item-text">💬 ${chat.title}</span>
-  <button class="chat-item-del">🗑</button>
-  `;
-
-          div.onclick = () => loadChat(chat.id);
-
-          div.querySelector("button").onclick = function (e) {
-            e.stopPropagation();
-            deleteChat(chat.id);
-          };
-
-          history.appendChild(div);
-        });
+      const el = document.getElementById('chatHistory');
+      el.innerHTML = '';
+      chats.slice().reverse().forEach(chat => {
+        const div = document.createElement('div');
+        div.className = 'chat-item' + (chat.id === currentChatId ? ' active' : '');
+        div.innerHTML = `<span class="chat-item-text">💬 ${chat.title}</span><button class="chat-item-del" onclick="deleteChat(event,'${chat.id}')">🗑</button>`;
+        div.onclick = (e) => { if (!e.target.classList.contains('chat-item-del')) loadChat(chat.id); };
+        el.appendChild(div);
+      });
     }
 
     function newChat() {
       currentChatId = null;
-
-      document.getElementById("chatTitle").textContent = "New Chat";
-
-      document.getElementById("messages").innerHTML = `
-  <div class="welcome" id="welcome">
-    <h2>Hi, I'm NOVA 👋</h2>
-    <p>Your personal AI Assistant — ask me anything!</p>
-
-    <div class="suggestions">
-      <div class="suggestion" onclick="suggest(this)">Write a Python function</div>
-      <div class="suggestion" onclick="suggest(this)">Explain machine learning</div>
-      <div class="suggestion" onclick="suggest(this)">Help me with my resume</div>
-      <div class="suggestion" onclick="suggest(this)">What is Docker?</div>
-    </div>
-  </div>
-  `;
-
+      document.getElementById('chatTitle').textContent = 'New Chat';
+      document.getElementById('messages').innerHTML = `
+        <div class="welcome" id="welcome">
+          <h2>Hi, I'm NOVA 👋</h2>
+          <p>Your personal AI Assistant — ask me anything!</p>
+          <div class="suggestions">
+            <div class="suggestion" onclick="suggest(this)">Write a Python function</div>
+            <div class="suggestion" onclick="suggest(this)">Explain machine learning</div>
+            <div class="suggestion" onclick="suggest(this)">Help me with my resume</div>
+            <div class="suggestion" onclick="suggest(this)">What is Docker?</div>
+          </div>
+        </div>`;
       renderHistory();
-    }
-
-    function deleteChat(id) {
-      chats = chats.filter((c) => c.id !== id);
-      saveChats();
-
-      if (currentChatId === id) {
-        newChat();
-      } else {
-        renderHistory();
-      }
     }
 
     function loadChat(id) {
-      const chat = chats.find((c) => c.id === id);
+      const chat = chats.find(c => c.id === id);
       if (!chat) return;
-
       currentChatId = id;
-
-      document.getElementById("chatTitle").textContent = chat.title;
-
-      const messages = document.getElementById("messages");
-      messages.innerHTML = "";
-
-      chat.messages.forEach((msg) => {
-        const row = document.createElement("div");
-        row.className = "msg-row" + (msg.role === "user" ? " user" : "");
-
-        if (msg.role === "user") {
-          row.innerHTML = `
-  <div class="bubble user">${msg.content}</div>
-  <div class="avatar user">U</div>
-  `;
+      document.getElementById('chatTitle').textContent = chat.title;
+      const messages = document.getElementById('messages');
+      messages.innerHTML = '';
+      chat.messages.forEach(m => {
+        const row = document.createElement('div');
+        if (m.role === 'user') {
+          row.className = 'msg-row user';
+          row.innerHTML = `<div class="bubble user">${m.content}</div><div class="avatar user">${getInitial()}</div>`;
         } else {
-          row.innerHTML = `
-  <div class="avatar bot">N</div>
-  <div class="bubble bot">${marked.parse(msg.content)}</div>
-  `;
+          row.className = 'msg-row';
+          const bubble = document.createElement('div');
+          bubble.className = 'bubble bot';
+          bubble.innerHTML = marked.parse(m.content || '');
+          row.innerHTML = `<div class="avatar bot">N</div>`;
+          row.appendChild(bubble);
         }
-
         messages.appendChild(row);
       });
-
       messages.scrollTop = messages.scrollHeight;
       renderHistory();
     }
 
-    /* ---------- INPUT ---------- */
-    function autoResize(el) {
-      el.style.height = "auto";
-      el.style.height = Math.min(el.scrollHeight, 120) + "px";
+    function deleteChat(e, id) {
+      e.stopPropagation();
+      chats = chats.filter(c => c.id !== id);
+      saveChats();
+      if (currentChatId === id) newChat();
+      else renderHistory();
     }
 
-    function handleKey(e) {
-      if (e.key === "Enter" && !e.shiftKey) {
-        e.preventDefault();
-        sendMessage();
-      }
-    }
+    function autoResize(el) { el.style.height = 'auto'; el.style.height = Math.min(el.scrollHeight, 120) + 'px'; }
+    function handleKey(e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } }
+    function suggest(el) { document.getElementById('input').value = el.textContent; sendMessage(); }
 
-    function suggest(el) {
-      document.getElementById("input").value = el.textContent;
-      sendMessage();
-    }
-
-    /* ---------- SEND MESSAGE ---------- */
     async function sendMessage() {
-      const input = document.getElementById("input");
+      const input = document.getElementById('input');
+      const messages = document.getElementById('messages');
       const text = input.value.trim();
-      const messages = document.getElementById("messages");
-
       if (!text) return;
 
-      let username = sessionStorage.getItem("nova_email") || "GuestUser";
-
-      const welcome = document.getElementById("welcome");
+      const welcome = document.getElementById('welcome');
       if (welcome) welcome.remove();
 
-      /* user message */
-      const userRow = document.createElement("div");
-      userRow.className = "msg-row user";
-
-      userRow.innerHTML = `
-  <div class="bubble user">${text}</div>
-  <div class="avatar user">${username.charAt(0).toUpperCase()}</div>
-  `;
-
+      const userRow = document.createElement('div');
+      userRow.className = 'msg-row user';
+      userRow.innerHTML = `<div class="bubble user">${text}</div><div class="avatar user">${getInitial()}</div>`;
       messages.appendChild(userRow);
+      input.value = '';
+      input.style.height = 'auto';
+      messages.scrollTop = messages.scrollHeight;
+      document.getElementById('sendBtn').disabled = true;
 
-      input.value = "";
-      input.style.height = "auto";
-
-      /* typing */
-      const typing = document.createElement("div");
-      typing.className = "msg-row";
-      typing.id = "typing";
-
-      typing.innerHTML = `
-  <div class="avatar bot">N</div>
-  <div class="bubble bot">
-    <div class="typing-indicator">
-      <span></span><span></span><span></span>
-    </div>
-  </div>
-  `;
-
-      messages.appendChild(typing);
+      const typingRow = document.createElement('div');
+      typingRow.className = 'msg-row';
+      typingRow.id = 'typing';
+      typingRow.innerHTML = `<div class="avatar bot">N</div><div class="bubble bot"><div class="typing-indicator"><span></span><span></span><span></span></div></div>`;
+      messages.appendChild(typingRow);
       messages.scrollTop = messages.scrollHeight;
 
-      document.getElementById("sendBtn").disabled = true;
-
       try {
-        const res = await fetch("/chat", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            username: username,
-            message: text
-          })
+        const res = await fetch('/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: text, chatId: currentChatId })
         });
-
         const data = await res.json();
+        document.getElementById('typing').remove();
 
-        document.getElementById("typing").remove();
+        const botRow = document.createElement('div');
+        botRow.className = 'msg-row';
+        const bubble = document.createElement('div');
+        bubble.className = 'bubble bot';
 
-        const reply = data.reply || data.error || "No response.";
-
-        const botRow = document.createElement("div");
-        botRow.className = "msg-row";
-
-        const bubble = document.createElement("div");
-        bubble.className = "bubble bot";
-
-        let replyContent = marked.parse(reply);
+        let replyContent = marked.parse(data.reply || data.error || 'Sorry, no response.');
         if (data.analysis) {
           const sentiment = data.analysis.sentiment;
           const emoji = sentiment === 'positive' ? '😊' : sentiment === 'negative' ? '😞' : '😐';
           const keywords = data.analysis.keywords.length > 0 ? data.analysis.keywords.join(', ') : 'none';
           replyContent += `
-    <div style="margin-top:10px;padding:8px 12px;background:#1a1a1a;border-radius:8px;font-size:12px;color:#888;border:1px solid #333;display:flex;gap:16px;flex-wrap:wrap;">
-      <span>🔵 IBM Watson</span>
-      <span>${emoji} Sentiment: <b style="color:#ececec">${sentiment}</b></span>
-      <span>🔑 Keywords: <b style="color:#ececec">${keywords}</b></span>
-    </div>`;
+            <div style="margin-top:10px;padding:8px 12px;background:#1a1a1a;border-radius:8px;font-size:12px;color:#888;border:1px solid #333;display:flex;gap:16px;flex-wrap:wrap;">
+              <span>🔵 IBM Watson</span>
+              <span>${emoji} Sentiment: <b style="color:#ececec">${sentiment}</b></span>
+              <span>🔑 Keywords: <b style="color:#ececec">${keywords}</b></span>
+            </div>`;
         }
         bubble.innerHTML = replyContent;
+        bubble.querySelectorAll('pre code').forEach(el => hljs.highlightElement(el));
 
-        const avatarDiv = document.createElement("div");
-        avatarDiv.className = "avatar bot";
-        avatarDiv.textContent = "N";
-
-        botRow.appendChild(avatarDiv);
+        botRow.innerHTML = `<div class="avatar bot">N</div>`;
         botRow.appendChild(bubble);
         messages.appendChild(botRow);
 
-        /* highlight code */
-        botRow.querySelectorAll("pre code").forEach((el) => {
-          hljs.highlightElement(el);
-        });
-
-        /* save chat */
         if (!currentChatId) {
           currentChatId = Date.now().toString();
-
-          chats.push({
-            id: currentChatId,
-            title: text.substring(0, 30),
-            messages: []
-          });
-
-          document.getElementById("chatTitle").textContent =
-            text.substring(0, 30);
+          chats.push({ id: currentChatId, title: text.slice(0, 30), messages: [] });
+          document.getElementById('chatTitle').textContent = text.slice(0, 30);
         }
-
-        const chat = chats.find((c) => c.id === currentChatId);
-
-        chat.messages.push({
-          role: "user",
-          content: text
-        });
-
-        chat.messages.push({
-          role: "bot",
-          content: reply
-        });
-
-        saveChats();
-        renderHistory();
-      } catch (err) {
-        document.getElementById("typing").remove();
-
-        const botRow = document.createElement("div");
-        botRow.className = "msg-row";
-
-        botRow.innerHTML = `
-  <div class="avatar bot">N</div>
-  <div class="bubble bot">
-    Server connection failed.
-  </div>
-  `;
-
-        messages.appendChild(botRow);
+        const chat = chats.find(c => c.id === currentChatId);
+        if (chat) {
+          chat.messages.push({ role: 'user', content: text });
+          chat.messages.push({ role: 'bot', content: data.reply || '' });
+          saveChats();
+          renderHistory();
+        }
+      } catch(e) {
+        document.getElementById('typing').remove();
+        const errRow = document.createElement('div');
+        errRow.className = 'msg-row';
+        errRow.innerHTML = `<div class="avatar bot">N</div><div class="bubble bot">Sorry, something went wrong. Please try again.</div>`;
+        messages.appendChild(errRow);
       }
 
-      document.getElementById("sendBtn").disabled = false;
+      document.getElementById('sendBtn').disabled = false;
       messages.scrollTop = messages.scrollHeight;
     }
 
-    /* ---------- PANELS ---------- */
     function toggleProjects() {
-      document.getElementById("projectsPanel").classList.toggle("open");
-      document.getElementById("settingsPanel").classList.remove("open");
+      document.getElementById('projectsPanel').classList.toggle('open');
+      document.getElementById('settingsPanel').classList.remove('open');
     }
-
     function toggleSettings() {
-      document.getElementById("settingsPanel").classList.toggle("open");
-      document.getElementById("projectsPanel").classList.remove("open");
+      document.getElementById('settingsPanel').classList.toggle('open');
+      document.getElementById('projectsPanel').classList.remove('open');
     }
   </script>
 </body>
-
 </html>
